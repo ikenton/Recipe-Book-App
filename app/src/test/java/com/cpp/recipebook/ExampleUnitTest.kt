@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.cpp.recipebook
 
 import org.junit.Test
 
