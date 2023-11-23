@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -47,6 +48,12 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.8.1'
     implementation 'androidx.ui:ui-framework:0.1.0-dev03'
     implementation 'com.google.ar.sceneform:filament-android:1.17.1'
+    implementation 'androidx.room:room-ktx:2.6.0'
+    ksp 'androidx.room:room-compiler:2.6.0'
+    implementation 'androidx.room:room-runtime:2.6.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+    ksp 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
