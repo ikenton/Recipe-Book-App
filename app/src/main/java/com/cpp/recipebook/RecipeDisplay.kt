@@ -148,7 +148,7 @@ fun GenerateRows() {
                         }
 
                     }
-                    if (i == 0) {
+                    if (j == 0) {
                         Spacer(modifier = Modifier.width(20.dp))
                     }
                 }
