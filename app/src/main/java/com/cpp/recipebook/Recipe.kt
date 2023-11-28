@@ -11,5 +11,5 @@ data class Recipe (
     val ingredients: MutableList<String>,
     val directions: MutableList<String>,
     val notes: MutableList<String>,
-    val image: String
+    val image: String? = null
 )
