@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -13,10 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.cpp.recipebook.Recipe
 
 @Composable
-fun RecipeCreationPage() {
-    Column {
+fun RecipeCreationPage(recipe: Recipe) {
+    Column(modifier = Modifier.padding(all = 16.dp)) {
         OutlinedTextField(
             value = "",
             onValueChange = {},
@@ -43,6 +45,8 @@ fun RecipeCreationPage() {
             text = "Ingredients",
             style = MaterialTheme.typography.headlineSmall
         )
+        ModularList(items = recipe.ingredients, onItemAdded = { recipe.ingredients.add(it) })
+        Spacer(modifier = Modifier.height(8.dp))
         // TODO: Add dynamic list of ingredients
         Spacer(modifier = Modifier.height(8.dp))
         // Dynamic list of directions
@@ -50,13 +54,16 @@ fun RecipeCreationPage() {
             text = "Directions",
             style = MaterialTheme.typography.headlineSmall
         )
-        // TODO: Add dynamic list of directions
+        ModularList(items = recipe.directions, onItemAdded = { recipe.directions.add(it) })
+        Spacer(modifier = Modifier.height(8.dp))
         Spacer(modifier = Modifier.height(8.dp))
         // Dynamic list of notes
         Text(
             text = "Notes",
             style = MaterialTheme.typography.headlineSmall
         )
+        ModularList(items = recipe.notes, onItemAdded = { recipe.notes.add(it) })
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
@@ -64,5 +71,5 @@ fun RecipeCreationPage() {
 @Preview
 @Composable
 fun RecipeCreationPagePreview() {
-    RecipeCreationPage()
+    RecipeCreationPage(recipe = Recipe(name = "Cheeseburger", cuisine = "American", ingredients = mutableListOf("Ground chuck beef", "Lettuce", "Onions"), directions = mutableListOf("Cook beef", "Add cheese"), notes = mutableListOf("Add more cheese"), image = "", id = 0))
 }
