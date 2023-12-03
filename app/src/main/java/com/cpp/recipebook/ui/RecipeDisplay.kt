@@ -1,6 +1,8 @@
 package com.cpp.recipebook.ui
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,29 +23,43 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cpp.recipebook.R
+import com.cpp.recipebook.RecipeRepository
 
 //val repository = RecipeRepository.get()
-val listOfNames = listOf("Hamburger","Brownies", "Pie", "Butter Chicken","Fried Chicken")
-val listOfCuisines = listOf("American", "Dessert", "Dessert", "Indian", "American")
-val listOfImages =listOf(
-    R.drawable.hamburger,
-    R.drawable.brownies,
-    R.drawable.pie,
-    R.drawable.butterchicken,
-    R.drawable.friedchicken
-)
-/*val recipeRepository = RecipeRepository.get()
-val recipes = recipeRepository.getRecipes()*/
-@Composable
-fun DisplayScreen(){
 
+class RecipeDisplay {
+
+    val recipeRepository = RecipeRepository.get()
+    val recipes = recipeRepository.getRecipes()
+
+}
+
+@Composable
+fun DisplayScreen() {
+    val listOfNames = listOf("Hamburger", "Brownies", "Pie", "Butter Chicken", "Fried Chicken", "Fifth")
+    val listOfCuisines = listOf("American", "Dessert", "Dessert", "Indian", "American","")
+    val listOfImages = listOf(
+        R.drawable.hamburger,
+        R.drawable.brownies,
+        R.drawable.pie,
+        R.drawable.butterchicken,
+        R.drawable.friedchicken,
+        R.drawable.friedchicken
+
+    )
     Box {
+        var showButton by remember { mutableStateOf(false) }
+
         GenerateRows(listOfImages, listOfNames, listOfCuisines)
         Column(
             horizontalAlignment = Alignment.End,
@@ -53,29 +69,23 @@ fun DisplayScreen(){
                 .fillMaxHeight()
                 .padding(25.dp)
         ) {
-            PlusButton()
+            Column {
+                if (showButton) {
+                    Button(onClick = {}) {
+                        Text(text = "Add Recipe")
+                    }
+                }
+                Button(
+                    onClick = { showButton = !showButton },
+                    shape = CircleShape
+                ) {
+                    Image(
+                        painterResource(id = R.drawable.ic_plus),
+                        contentDescription = "Create Recipe"
+                    )
+                }
+            }
         }
-    }
-}
-@Composable
-fun PlusButton(){
-    Button(
-        onClick = {
-
-
-        },
-        shape = CircleShape
-        ){
-        Image(
-            painterResource(id = R.drawable.ic_plus),
-            contentDescription = "Create Recipe"
-        )
-    }
-}
-@Composable
-fun CreateRecipeButton(){
-    Button(onClick = { /*TODO*/ }) {
-
     }
 }
 
@@ -92,12 +102,15 @@ fun GenerateRows(images: List<Int>, names: List<String>, cuisines: List<String>)
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
-        val total = kotlin.math.ceil((images.size / 2.0))
+        val total = kotlin.math.ceil((names.size / 2.0))
 
         for (i in 1..total.toInt()) {
+            var name = ""
+            var cuisine = ""
             Row() {
                 for (j in 0..1) {
-                    if (index >= images.size) {
+
+                    if (index >= names.size) {
 
                         ElevatedCard(
                             modifier = Modifier
@@ -109,16 +122,16 @@ fun GenerateRows(images: List<Int>, names: List<String>, cuisines: List<String>)
                                 defaultElevation = 6.dp
                             )
                         ) {
-                            Surface(
-                                color = Color.White
-                            ) {}
+
                         }
                     }else{
                         ElevatedCard(
                             modifier = Modifier
                                 .width(160.dp)
                                 .height(150.dp)
-                                //.padding(bottom = 20.dp)
+                                .clickable {
+                                    //nav go to recipe
+                                }
                             ,
                             elevation = CardDefaults.cardElevation(
                                 defaultElevation = 6.dp
@@ -131,14 +144,16 @@ fun GenerateRows(images: List<Int>, names: List<String>, cuisines: List<String>)
                                     modifier = Modifier
                                         .fillMaxSize()
                                 ) {
-                                    Image(
-                                        modifier = Modifier
-                                            .fillMaxSize(),
-                                            //id = recipe.getImage()
-                                            painter = painterResource(id = images[index]),
-                                            contentDescription = "Image",
+                                    if(index < images.size){
+                                        Image(
+                                            modifier = Modifier
+                                                .fillMaxSize(),
+                                                //id = recipe.getImage()
+                                                painter = painterResource(id = images[index]),
+                                                contentDescription = "Image",
 
-                                    )
+                                        )
+                                    }
                                     Column(
                                         modifier = Modifier
                                             .align(Alignment.BottomStart)
@@ -155,6 +170,7 @@ fun GenerateRows(images: List<Int>, names: List<String>, cuisines: List<String>)
 
                                     )
                                         Text(
+
                                             text = cuisines[index],
                                             modifier = Modifier.padding(
                                                 start = 5.dp,
