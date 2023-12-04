@@ -23,19 +23,9 @@ fun RecipeCreationPage(recipe: Recipe) {
     Column(modifier = Modifier
         .padding(all = 24.dp)
         .verticalScroll(rememberScrollState())) {
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text("Recipe Name") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        SimpleTextField(label = "Recipe Name")
         Spacer(modifier = Modifier.height(4.dp))
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text("Cuisine") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        SimpleTextField(label = "Cuisine")
         Spacer(modifier = Modifier.height(16.dp))
         // Dynamic list of ingredients
         Text(
