@@ -13,22 +13,21 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ModularList(items: MutableList<String>, onItemAdded: (String) -> Unit) {
-    LazyColumn {
-        items(items) { item ->
+    Column {
+        items.forEach { item ->
             ListItem(headlineContent = { Text(item) })
         }
-        item {
-            OutlinedTextField(value = "", onValueChange = { newItem ->
-                if (newItem.isNotEmpty()) {
-                    onItemAdded(newItem)
-                }
-            },
-                label = { Text("Add Item") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        OutlinedTextField(value = "", onValueChange = { newItem ->
+            if (newItem.isNotEmpty()) {
+                onItemAdded(newItem)
+            }
+        },
+            label = { Text("Add Item") },
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
+
 
 @Preview
 @Composable

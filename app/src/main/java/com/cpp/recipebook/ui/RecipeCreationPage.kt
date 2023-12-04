@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -18,7 +20,9 @@ import com.cpp.recipebook.Recipe
 
 @Composable
 fun RecipeCreationPage(recipe: Recipe) {
-    Column(modifier = Modifier.padding(all = 16.dp)) {
+    Column(modifier = Modifier
+        .padding(all = 24.dp)
+        .verticalScroll(rememberScrollState())) {
         OutlinedTextField(
             value = "",
             onValueChange = {},
@@ -32,14 +36,7 @@ fun RecipeCreationPage(recipe: Recipe) {
             label = { Text("Cuisine") },
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        OutlinedButton(
-            onClick = { /* Handle adding image */ },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Add Image")
-        }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         // Dynamic list of ingredients
         Text(
             text = "Ingredients",
@@ -63,6 +60,13 @@ fun RecipeCreationPage(recipe: Recipe) {
             style = MaterialTheme.typography.headlineSmall
         )
         ModularList(items = recipe.notes, onItemAdded = { recipe.notes.add(it) })
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedButton(
+            onClick = { /* Handle adding image */ },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Add Image")
+        }
         Spacer(modifier = Modifier.height(8.dp))
     }
 }
