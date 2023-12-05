@@ -20,36 +20,25 @@ import com.cpp.recipebook.Recipe
 
 @Composable
 fun RecipeCreationPage(recipe: Recipe) {
+    // Have these separate so that user can cancel changes
+    val name = recipe.name
+    val cuisine = recipe.cuisine
+    val ingredients = recipe.ingredients
+    val directions = recipe.directions
+    val notes = recipe.notes
+
     Column(modifier = Modifier
         .padding(all = 24.dp)
         .verticalScroll(rememberScrollState())) {
-        SimpleTextField(label = "Recipe Name")
-        Spacer(modifier = Modifier.height(4.dp))
-        SimpleTextField(label = "Cuisine")
-        Spacer(modifier = Modifier.height(16.dp))
-        // Dynamic list of ingredients
-        Text(
-            text = "Ingredients",
-            style = MaterialTheme.typography.headlineSmall
-        )
-        ModularList(items = recipe.ingredients, onItemAdded = { recipe.ingredients.add(it) })
+        SimpleTextField(label = "Recipe Name", value = name)
         Spacer(modifier = Modifier.height(8.dp))
-        // TODO: Add dynamic list of ingredients
+        SimpleTextField(label = "Cuisine", value = cuisine)
         Spacer(modifier = Modifier.height(8.dp))
-        // Dynamic list of directions
-        Text(
-            text = "Directions",
-            style = MaterialTheme.typography.headlineSmall
-        )
-        ModularList(items = recipe.directions, onItemAdded = { recipe.directions.add(it) })
+        BigTextField(items = ingredients, label = "Ingredients")
         Spacer(modifier = Modifier.height(8.dp))
+        BigTextField(items = directions, label = "Directions")
         Spacer(modifier = Modifier.height(8.dp))
-        // Dynamic list of notes
-        Text(
-            text = "Notes",
-            style = MaterialTheme.typography.headlineSmall
-        )
-        ModularList(items = recipe.notes, onItemAdded = { recipe.notes.add(it) })
+        BigTextField(items = notes, label = "Notes")
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedButton(
             onClick = { /* Handle adding image */ },

@@ -11,8 +11,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SimpleTextField(label : String) {
-    var text by remember { mutableStateOf("") }
+fun SimpleTextField(label : String, value : String) {
+    var text by remember { mutableStateOf(value) }
     OutlinedTextField(
         value = text,
         onValueChange = { text = it },
