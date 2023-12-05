@@ -23,7 +23,7 @@ class TestActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RecipeCreationPage(recipe = Recipe(name = "Cheeseburger", cuisine = "American", ingredients = mutableListOf("Ground chuck beef", "Lettuce", "Onions"), directions = mutableListOf("Cook beef", "Add cheese"), notes = mutableListOf("Add more cheese"), image = "", id = 0))
+                    RecipeCreationPage(recipe = Recipe(name = "Cheeseburger", cuisine = "American", ingredients = "Ground chuck beef\nLettuce\nOnions", directions ="Cook beef\nAdd cheese", notes = "Add more cheese", image = "", id = 0))
                 }
             }
         }
@@ -47,7 +47,7 @@ fun GreetingPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RecipeCreationPage(recipe = Recipe(name = "Cheeseburger", cuisine = "American", ingredients = mutableListOf("Ground chuck beef", "Lettuce", "Onions"), directions = mutableListOf("Cook beef", "Add cheese"), notes = mutableListOf("Add more cheese"), image = "", id = 0))
+            RecipeCreationPage(recipe = Recipe(name = "Cheeseburger", cuisine = "American", ingredients = "Ground chuck beef\nLettuce\nOnions", directions ="Cook beef\nAdd cheese", notes = "Add more cheese", image = "", id = 0))
         }
     }
 }

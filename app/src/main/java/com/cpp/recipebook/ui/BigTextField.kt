@@ -16,15 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BigTextField(label : String, items : MutableList<String>) {
-    // for every item in the list, add it to the text field with a new line unless its the last item
-    var text by remember { mutableStateOf("") }
-    for (item in items) {
-        text += item
-        if (item != items.last()) {
-            text += "\n"
-        }
-    }
+fun BigTextField(label : String, items : String) {
+    var text by remember { mutableStateOf(items) }
     OutlinedTextField(
         value = text,
         onValueChange = { text = it },
@@ -40,7 +33,7 @@ fun BigTextField(label : String, items : MutableList<String>) {
 @Composable
 fun PreviewModularList() {
     Column {
-        val items = mutableListOf("Ground chuck beef", "Lettuce", "Onions")
+        val items = ("Ground chuck beef\nOnions\nLettuce\nTomatoes\nCheese\nBuns")
         BigTextField(label = "Ingredients", items = items)
     }
 }
