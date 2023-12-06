@@ -1,24 +1,6 @@
 package com.cpp.recipebook
 
-import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.cpp.recipebook.ui.DisplayScreen
+/*
 enum class Navigation(@StringRes val title: Int){
     Start(title = R.string.navigation),
     RecipeCreation(title = R.string.recipe_creation_page),
@@ -83,7 +65,7 @@ fun RecipeBookApp(
         }
     }
 }
-
+*/
 
 
 

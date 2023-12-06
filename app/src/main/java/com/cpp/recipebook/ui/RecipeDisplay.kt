@@ -18,8 +18,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,7 +47,7 @@ class RecipeDisplay {
 
 @Composable
 fun DisplayScreen(
-    onAddButtonClicked: () -> Unit
+   /* onAddButtonClicked: () -> Unit*/
 ) {
 
     val listOfNames = listOf("Hamburger", "Brownies", "Pie", "Butter Chicken", "Fried Chicken", "Fifth")
@@ -73,12 +75,15 @@ fun DisplayScreen(
         ) {
             Column {
                 if (showButton) {
-                    Button(onClick = {onAddButtonClicked()}) {
+                    Button(onClick = {/*onAddButtonClicked()*/},
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+                    ) {
                         Text(text = "Add Recipe")
                     }
                 }
-                Button(
+                FloatingActionButton(
                     onClick = { showButton = !showButton },
+                    containerColor = Color.Red,
                     shape = CircleShape
                 ) {
                     Image(
