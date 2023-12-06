@@ -3,9 +3,11 @@ package com.cpp.recipebook.ui.create_update_recipe
 import android.app.Application
 import android.net.Uri
 import android.util.Log
+import androidx.compose.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,8 +26,9 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeCreationViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
-    savedStateHandle: SavedStateHandle
-): ViewModel() {
+    savedStateHandle: SavedStateHandle,
+    application: Application
+): AndroidViewModel(application) {
     var recipe by mutableStateOf<Recipe?>(null)
         private set
     var name by mutableStateOf("")
@@ -83,7 +86,14 @@ class RecipeCreationViewModel @Inject constructor(
                 notes = event.notes
             }
             is CreateUpdateRecipeEvent.OnImageChange -> {
-                
+                viewModelScope.launch {
+                    val context = getApplication<Application>().applicationContext
+                    val inputStream = context.contentResolver.openInputStream(event.uri!!)
+                    val filename = "img_${System.currentTimeMillis()}.jpg"
+                    val outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE)
+                    inputStream?.copyTo(outputStream)
+                    image = context.getFileStreamPath(filename).absolutePath
+                }
             }
             is CreateUpdateRecipeEvent.OnSaveClick -> {
                 viewModelScope.launch {
