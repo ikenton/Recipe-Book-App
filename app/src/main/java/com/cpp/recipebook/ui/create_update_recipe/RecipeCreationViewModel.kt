@@ -10,9 +10,11 @@ import com.cpp.recipebook.Recipe
 import com.cpp.recipebook.database.RecipeRepository
 import com.cpp.recipebook.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 
@@ -79,16 +81,19 @@ class RecipeCreationViewModel @Inject constructor(
                         sendUiEvent(UiEvent.ShowSnackbar("Please fill out all fields"))
                         return@launch
                     }
-                    recipeRepository.addRecipe(
-                        Recipe(
-                            name = name,
-                            cuisine = cuisine,
-                            ingredients = ingredients,
-                            directions = directions,
-                            notes = notes,
-                            image = ""  // TEMP: figure out image later lol
+                    withContext(Dispatchers.IO) {
+                        recipeRepository.addRecipe(
+                            Recipe(
+                                id = recipe?.id,
+                                name = name,
+                                cuisine = cuisine,
+                                ingredients = ingredients,
+                                directions = directions,
+                                notes = notes,
+                                image = ""  // TEMP: figure out image later lol
+                            )
                         )
-                    )
+                    }
                     sendUiEvent(UiEvent.PopBackStack)
                 }
             }
