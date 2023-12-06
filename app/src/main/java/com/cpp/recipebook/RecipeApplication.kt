@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.cpp.recipebook.database.RecipeDatabase
 
+@HiltAndroidApp
 class RecipeApplication : Application() {
     private val database: RecipeDatabase by lazy{
         Room.databaseBuilder(
