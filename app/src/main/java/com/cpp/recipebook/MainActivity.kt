@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RecipeCreationPage(recipe = Recipe(name = "Cheeseburger", cuisine = "American", ingredients = "Ground chuck beef\nLettuce\nOnions", directions ="Cook beef\nAdd cheese", notes = "Add more cheese", image = "", id = 0))
                 }
             }
         }

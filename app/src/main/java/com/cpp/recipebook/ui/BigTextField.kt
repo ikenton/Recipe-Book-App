@@ -22,7 +22,8 @@ fun BigTextField(label : String, items : String) {
         value = text,
         onValueChange = { text = it },
         label = { Text(label) },
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
     )
 }
 

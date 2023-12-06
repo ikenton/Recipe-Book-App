@@ -1,6 +1,7 @@
 package com.cpp.recipebook.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,9 +28,10 @@ fun RecipeCreationPage(recipe: Recipe) {
     val directions = recipe.directions
     val notes = recipe.notes
 
-    Column(modifier = Modifier
-        .padding(all = 24.dp)
-        .verticalScroll(rememberScrollState())) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState())) {
         SimpleTextField(label = "Recipe Name", value = name)
         Spacer(modifier = Modifier.height(8.dp))
         SimpleTextField(label = "Cuisine", value = cuisine)
