@@ -123,10 +123,3 @@ fun CreateUpdateRecipeScreen(
         }
     }
 }
-
-// preview
-@Preview
-@Composable
-fun CreateUpdateRecipeScreenPreview() {
-    CreateUpdateRecipeScreen()
-}

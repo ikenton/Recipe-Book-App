@@ -5,6 +5,9 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.dagger.hilt.android'
+
 android {
     namespace 'com.cpp.recipebook'
     compileSdk 34
@@ -71,11 +74,18 @@ dependencies {
     implementation platform('androidx.compose:compose-bom:2023.03.00')
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation "com.google.dagger:hilt-android:2.44"
-    implementation 'androidx.hilt:hilt-navigation-compose:1.1.0'
 
-    ksp "com.google.dagger:dagger-compiler:2.44"
-    ksp "com.google.dagger:hilt-compiler:2.44"
+    // Compose dependencies
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2"
+    implementation "androidx.navigation:navigation-compose:2.7.5"
+
+    // dagger hilt
+    implementation "com.google.dagger:hilt-android:2.48"
+    ksp "com.google.dagger:hilt-android-compiler:2.48"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.1.0'
+    ksp "com.google.dagger:hilt-compiler:2.48"   // Hilt compiler
+    ksp "com.google.dagger:dagger-compiler:2.48"
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
