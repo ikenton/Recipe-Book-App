@@ -8,6 +8,7 @@ import com.cpp.recipebook.database.RecipeRepository
 import com.cpp.recipebook.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,8 +29,8 @@ class RecipeCreationViewModel @Inject constructor(
     var notes = mutableStateOf("")
         private set
 
-    private val _uiEvent = Channel<UiEvent>()   // 1:10:38
-    val uiEvent = _uiEvent
+    private val _uiEvent = Channel<UiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
 //    figure out image later lol
 }
