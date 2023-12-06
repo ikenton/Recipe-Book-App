@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 
+// will not be used in current state
 class RecipeTypeConverters {
     private val moshi = Moshi.Builder().build()
     private val listType = com.squareup.moshi.Types.newParameterizedType(
