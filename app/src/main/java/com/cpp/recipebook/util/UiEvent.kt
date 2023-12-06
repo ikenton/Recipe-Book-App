@@ -1,4 +1,5 @@
 package com.cpp.recipebook.util
 
-class UiEvent {
+sealed class UiEvent {
+
 }
