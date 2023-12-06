@@ -1,4 +1,4 @@
-package com.cpp.recipebook.ui
+package com.cpp.recipebook.ui.create_update_recipe
 
 import androidx.lifecycle.ViewModel
 import com.cpp.recipebook.database.RecipeRepository
