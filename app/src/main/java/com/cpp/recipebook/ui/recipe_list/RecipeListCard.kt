@@ -35,8 +35,6 @@ fun RecipeListCard(
     ElevatedCard(
         onClick = { onEvent(RecipeListEvent.onRecipeClick(recipe.id!!)) },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        modifier = Modifier
-            .padding(16.dp)
     ) {
         Column(
             modifier = Modifier
