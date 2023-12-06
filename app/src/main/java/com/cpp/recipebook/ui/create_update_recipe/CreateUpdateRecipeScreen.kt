@@ -26,7 +26,7 @@ import com.cpp.recipebook.util.UiEvent
 @Composable
 fun CreateUpdateRecipeScreen(
     viewModel: RecipeCreationViewModel = hiltViewModel(), // 1:19
-    // might need popback nav controller thing
+    onPopBackStack: () -> Unit
 ) {
     // TODO: figure out modern way to get snackbar on scaffold
     LaunchedEffect(key1 = true) {
@@ -40,9 +40,7 @@ fun CreateUpdateRecipeScreen(
                     // TODO: navigate
                 }
 
-                is UiEvent.PopBackStack -> {
-                    // TODO: pop back stack
-                }
+                is UiEvent.PopBackStack -> onPopBackStack()
             }
         }
     }
