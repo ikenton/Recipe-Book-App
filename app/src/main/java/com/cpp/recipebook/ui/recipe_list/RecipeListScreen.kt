@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -44,33 +48,19 @@ fun RecipeListScreen(
             }
         }
     ) { values ->
-        LazyColumn(
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Fixed(2),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(values)
+                .padding(values),
         ) {
-            // fill with rows, 2 per row
-            items(recipes.value.size / 2) { index ->
-                Row {
-                    RecipeListCard(
-                        recipe = recipes.value[index * 2],
-                        onEvent = viewModel::onEvent,
-                        modifier = Modifier
-                            .weight(1f)
-                            .clickable {
-                                viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index * 2].id!!))
-                            }
-                    )
-                    RecipeListCard(
-                        recipe = recipes.value[index * 2 + 1],
-                        onEvent = viewModel::onEvent,
-                        modifier = Modifier
-                            .weight(1f)
-                            .clickable {
-                                viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index * 2 + 1].id!!))
-                            }
-                    )
-                }
+            items(recipes.value.size) { index ->
+                RecipeListCard(
+                    recipe = recipes.value[index],
+                    onEvent = viewModel::onEvent,
+                    modifier = Modifier
+                        .clickable { viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index].id!!)) }
+                )
             }
         }
     }
