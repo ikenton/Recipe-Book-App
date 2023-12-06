@@ -1,6 +1,8 @@
 package com.cpp.recipebook.ui.create_update_recipe
 
+import android.app.Application
 import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.cpp.recipebook.database.Recipe
 import com.cpp.recipebook.database.RecipeRepository
 import com.cpp.recipebook.util.UiEvent
+import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -37,8 +40,6 @@ class RecipeCreationViewModel @Inject constructor(
         private set
     var image by mutableStateOf("")
         private set
-    var selectedImageUri by mutableStateOf<Uri?>(null)
-        private set
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
@@ -58,6 +59,7 @@ class RecipeCreationViewModel @Inject constructor(
                         image = recipe.image
                         this@RecipeCreationViewModel.recipe = recipe
                     }
+                    Log.d("RecipeCreationViewModel", "image path: $image")
                 }
             }
         }
@@ -81,7 +83,7 @@ class RecipeCreationViewModel @Inject constructor(
                 notes = event.notes
             }
             is CreateUpdateRecipeEvent.OnImageChange -> {
-                image = event.uri.toString()
+                
             }
             is CreateUpdateRecipeEvent.OnSaveClick -> {
                 viewModelScope.launch {
