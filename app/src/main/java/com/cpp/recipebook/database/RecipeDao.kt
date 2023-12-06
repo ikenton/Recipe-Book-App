@@ -5,10 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
-import com.cpp.recipebook.Recipe
 import kotlinx.coroutines.flow.Flow
-import java.util.UUID
 
 @Dao
 interface RecipeDao {
@@ -19,7 +16,7 @@ interface RecipeDao {
 
     //get single recipe
     @Query("SELECT * FROM recipe WHERE id=(:id)")
-    suspend fun getRecipe(id: Int):Recipe
+    suspend fun getRecipe(id: Int): Recipe
 
     //get recipe name
     @Query("SELECT name FROM recipe WHERE id=(:id)")

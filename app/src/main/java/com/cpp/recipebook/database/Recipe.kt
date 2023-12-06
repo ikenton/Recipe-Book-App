@@ -1,4 +1,4 @@
-package com.cpp.recipebook
+package com.cpp.recipebook.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
