@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FloatingActionButton
@@ -22,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cpp.recipebook.util.UiEvent
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")    // TODO: remove this
 @Composable
 fun CreateUpdateRecipeScreen(
     viewModel: RecipeCreationViewModel = hiltViewModel(), // 1:19
@@ -37,7 +39,7 @@ fun CreateUpdateRecipeScreen(
                 }
 
                 is UiEvent.Navigate -> {
-                    // TODO: navigate
+                    // do nothing
                 }
 
                 is UiEvent.PopBackStack -> onPopBackStack()
@@ -58,9 +60,11 @@ fun CreateUpdateRecipeScreen(
                 )
             }
         }
-    ) {
+    ) { values ->
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(values)
         ) {
             // name
             TextField(
@@ -69,7 +73,7 @@ fun CreateUpdateRecipeScreen(
                     viewModel.onEvent(CreateUpdateRecipeEvent.OnNameChange(it))
                 },
                 label = { Text("Name") },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -80,7 +84,7 @@ fun CreateUpdateRecipeScreen(
                     viewModel.onEvent(CreateUpdateRecipeEvent.OnCuisineChange(it))
                 },
                 label = { Text("Cuisine") },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -91,7 +95,7 @@ fun CreateUpdateRecipeScreen(
                     viewModel.onEvent(CreateUpdateRecipeEvent.OnIngredientsChange(it))
                 },
                 label = { Text("Ingredients") },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxWidth()
 
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -103,7 +107,7 @@ fun CreateUpdateRecipeScreen(
                     viewModel.onEvent(CreateUpdateRecipeEvent.OnDirectionsChange(it))
                 },
                 label = { Text("Directions") },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -114,7 +118,7 @@ fun CreateUpdateRecipeScreen(
                     viewModel.onEvent(CreateUpdateRecipeEvent.OnNotesChange(it))
                 },
                 label = { Text("Notes") },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxWidth()
             )
 
             // TODO: image

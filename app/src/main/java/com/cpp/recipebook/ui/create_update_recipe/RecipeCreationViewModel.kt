@@ -40,15 +40,17 @@ class RecipeCreationViewModel @Inject constructor(
 
     init {
         val recipeId = savedStateHandle.get<Int>("recipeId")
-        if(recipeId != null) {
+        if (recipeId != -1) {
             viewModelScope.launch {
-                recipe = recipeRepository.getRecipe(recipeId).let { recipe ->
-                    name = recipe.name
-                    cuisine = recipe.cuisine
-                    ingredients = recipe.ingredients
-                    directions = recipe.directions
-                    notes = recipe.notes
-                    recipe
+                if (recipeId != null) {
+                    recipeRepository.getRecipe(recipeId).let { recipe ->
+                        name = recipe.name
+                        cuisine = recipe.cuisine
+                        ingredients = recipe.ingredients
+                        directions = recipe.directions
+                        notes = recipe.notes
+                        this@RecipeCreationViewModel.recipe = recipe
+                    }
                 }
             }
         }
@@ -73,7 +75,7 @@ class RecipeCreationViewModel @Inject constructor(
             }
             is CreateUpdateRecipeEvent.OnSaveClick -> {
                 viewModelScope.launch {
-                    if (name.isBlank() || cuisine.isBlank() || ingredients.isBlank() || directions.isBlank() || notes.isBlank()) {
+                    if (name.isBlank() || cuisine.isBlank()) {
                         sendUiEvent(UiEvent.ShowSnackbar("Please fill out all fields"))
                         return@launch
                     }
