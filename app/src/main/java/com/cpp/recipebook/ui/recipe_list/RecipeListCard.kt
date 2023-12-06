@@ -27,7 +27,7 @@ fun RecipeListCard(
     modifier: Modifier = Modifier
 ) {
     ElevatedCard(
-        onClick = { onEvent(RecipeListEvent.onRecipeClick(recipe.id!!)) },
+        onClick = { onEvent(RecipeListEvent.onRecipeClick(recipe)) },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
     ) {
         Column(
