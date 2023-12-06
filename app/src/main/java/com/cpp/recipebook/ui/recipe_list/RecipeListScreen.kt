@@ -65,7 +65,7 @@ fun RecipeListScreen(
                         recipe = recipes.value[index],
                         onEvent = viewModel::onEvent,
                         modifier = Modifier
-                            .clickable { viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index].id!!)) }
+                            .clickable { viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index])) }
                     )
                 }
             }

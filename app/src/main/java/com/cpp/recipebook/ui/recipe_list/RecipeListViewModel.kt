@@ -25,7 +25,7 @@ class RecipeListViewModel @Inject constructor(
             is RecipeListEvent.onRecipeClick -> {
                 // TODO: handle navigation to recipe
                 // For now we can just navigate to the creation and edit screen while detail screen is being built
-                sendUiEvent(UiEvent.Navigate(Routes.CREATE_UPDATE_RECIPE + "?recipeId=${event.recipeId}"))  // check later?
+                sendUiEvent(UiEvent.Navigate(Routes.CREATE_UPDATE_RECIPE + "?recipeId=${event.recipe.id}"))  // check later?
             }
             is RecipeListEvent.onAddRecipeClick -> {
                 sendUiEvent(UiEvent.Navigate(Routes.CREATE_UPDATE_RECIPE))
