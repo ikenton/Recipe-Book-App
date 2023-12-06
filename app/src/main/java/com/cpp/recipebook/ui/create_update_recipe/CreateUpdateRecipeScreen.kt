@@ -1,5 +1,6 @@
 package com.cpp.recipebook.ui.create_update_recipe
 
+import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,8 +23,10 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.cpp.recipebook.util.UiEvent
 
 @Composable
@@ -126,14 +129,25 @@ fun CreateUpdateRecipeScreen(
                 label = { Text("Notes") },
                 modifier = Modifier.fillMaxWidth()
             )
-
-            Button(onClick = {
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = {
                 singlePhotoPickerLauncher.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                )
-            }) {
+                    )
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Text("Add Image")
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            AsyncImage(
+                model = Uri.parse(viewModel.image),
+                contentDescription = "image of food",
+                modifier = Modifier
+                    .fillMaxWidth(),
+                contentScale = ContentScale.Crop
+            )
         }
     }
 }
