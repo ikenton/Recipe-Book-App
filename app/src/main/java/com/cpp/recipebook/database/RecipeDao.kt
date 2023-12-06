@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.cpp.recipebook.Recipe
+import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 @Dao
@@ -14,7 +15,7 @@ interface RecipeDao {
     // fetch all recipes
     // note: maybe should return flow in the future?
     @Query("SELECT * FROM recipe")
-    fun getRecipes(): List<Recipe>
+    fun getRecipes(): Flow<List<Recipe>>
 
     //get single recipe
     @Query("SELECT * FROM recipe WHERE id=(:id)")
