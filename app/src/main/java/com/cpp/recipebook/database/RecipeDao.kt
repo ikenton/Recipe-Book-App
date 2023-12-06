@@ -11,6 +11,7 @@ import java.util.UUID
 @Dao
 interface RecipeDao {
     // fetch all recipes
+    // note: maybe should return flow in the future?
     @Query("SELECT * FROM recipe")
     fun getRecipes(): List<Recipe>
 
