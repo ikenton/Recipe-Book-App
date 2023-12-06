@@ -3,6 +3,7 @@ package com.cpp.recipebook.database
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.cpp.recipebook.Recipe
@@ -27,15 +28,13 @@ interface RecipeDao {
     @Query("SELECT cuisine FROM recipe WHERE id=(:id)")
     suspend fun getCuisine(id:UUID):String
 
-    // add a recipe
-    @Insert
+    // add a recipe or update a recipe
+    // if id conflict, update the recipe instead
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRecipe(recipe: Recipe)
 
     // delete a recipe
     @Delete
     fun deleteRecipe(vararg recipe: Recipe)
 
-    // update a recipe
-    @Update
-    fun updateRecipe(recipe: Recipe)
 }
