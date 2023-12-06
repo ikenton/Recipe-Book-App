@@ -27,9 +27,6 @@ fun BigTextField(label : String, items : String) {
     )
 }
 
-
-
-
 @Preview
 @Composable
 fun PreviewModularList() {

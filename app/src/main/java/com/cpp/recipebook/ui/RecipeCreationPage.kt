@@ -31,7 +31,8 @@ fun RecipeCreationPage(recipe: Recipe) {
     Column(
         modifier = Modifier
             .padding(16.dp)
-            .verticalScroll(rememberScrollState())) {
+            .verticalScroll(rememberScrollState())
+    ) {
         SimpleTextField(label = "Recipe Name", value = name)
         Spacer(modifier = Modifier.height(8.dp))
         SimpleTextField(label = "Cuisine", value = cuisine)
