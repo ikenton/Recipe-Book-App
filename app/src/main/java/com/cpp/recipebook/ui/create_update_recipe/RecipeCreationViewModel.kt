@@ -88,6 +88,7 @@ class RecipeCreationViewModel @Inject constructor(
                             image = ""  // TEMP: figure out image later lol
                         )
                     )
+                    // TODO: handle back navigation
                 }
             }
         }
