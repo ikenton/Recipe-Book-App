@@ -33,7 +33,7 @@ fun RecipeListCard(
     modifier: Modifier = Modifier
 ) {
     ElevatedCard(
-        onClick = { onEvent(RecipeListEvent.onRecipeClick(recipe.id)) },
+        onClick = { onEvent(RecipeListEvent.onRecipeClick(recipe.id!!)) },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
             .padding(16.dp)
@@ -73,7 +73,6 @@ fun RecipeListCard(
 fun RecipeListCardPreview() {
     RecipeListCard(
         recipe = Recipe(
-            id = UUID.randomUUID(),
             name = "Cheeseburger",
             cuisine = "American",
             ingredients = "Test Ingredient 1\nTest Ingredient 2",

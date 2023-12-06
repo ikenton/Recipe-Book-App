@@ -18,20 +18,47 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.cpp.recipebook.ui.create_update_recipe.CreateUpdateRecipeScreen
+import com.cpp.recipebook.ui.recipe_list.RecipeListScreen
 import com.cpp.recipebook.ui.theme.RecipeBookTheme
+import com.cpp.recipebook.util.Routes
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             RecipeBookTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                }
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Routes.RECIPE_LIST,
+                    builder = {
+                        composable(Routes.RECIPE_LIST) {
+                            RecipeListScreen(
+                                onNavigate = { navController.navigate(it.route) }
+                            )
+                        }
+                        composable(
+                            route = Routes.CREATE_UPDATE_RECIPE,
+                            arguments = listOf(
+                                navArgument(name = "recipeId") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                })
+                            ) {
+                                CreateUpdateRecipeScreen(
+                                    onPopBackStack = { navController.popBackStack() }
+                                )
+                            }
+                    }
+                )
             }
         }
     }

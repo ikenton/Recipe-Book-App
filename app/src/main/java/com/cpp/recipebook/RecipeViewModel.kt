@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class RecipeViewModel(recipeId: UUID) : ViewModel() {
+class RecipeViewModel(recipeId: Int) : ViewModel() {
     private val recipeRepository = RecipeRepository.get()
     private val _recipe: MutableStateFlow<Recipe?> = MutableStateFlow(null)
     val recipe: StateFlow<Recipe?> = _recipe.asStateFlow()
@@ -33,13 +33,13 @@ class RecipeViewModel(recipeId: UUID) : ViewModel() {
 //        commenting out for now so i can build LOL
     }
 
-    suspend fun removeRecipe(recipeId: UUID){
+    suspend fun removeRecipe(recipeId: Int){
         recipeRepository.getRecipe(recipeId)
     }
 }
 
 class RecipeViewModelFactory(
-    private val recipeId: UUID
+    private val recipeId: Int
 ): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T{
         return RecipeViewModel(recipeId) as T

@@ -11,15 +11,15 @@ class RecipeRepositoryImpl(
         return recipeDao.getRecipes()
     }
 
-    override suspend fun getRecipe(id: UUID): Recipe {
+    override suspend fun getRecipe(id: Int): Recipe {
         return recipeDao.getRecipe(id)
     }
 
-    override suspend fun getName(id: UUID): String {
+    override suspend fun getName(id: Int): String {
         return recipeDao.getName(id)
     }
 
-    override suspend fun getCuisine(id: UUID): String {
+    override suspend fun getCuisine(id: Int): String {
         return recipeDao.getCuisine(id)
     }
 

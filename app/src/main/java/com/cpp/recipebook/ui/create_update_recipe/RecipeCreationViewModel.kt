@@ -39,7 +39,7 @@ class RecipeCreationViewModel @Inject constructor(
 //    figure out image later lol
 
     init {
-        val recipeId = savedStateHandle.get<UUID>("recipeId")
+        val recipeId = savedStateHandle.get<Int>("recipeId")
         if(recipeId != null) {
             viewModelScope.launch {
                 recipe = recipeRepository.getRecipe(recipeId).let { recipe ->
@@ -79,7 +79,6 @@ class RecipeCreationViewModel @Inject constructor(
                     }
                     recipeRepository.addRecipe(
                         Recipe(
-                            id = recipe?.id ?: UUID.randomUUID(),
                             name = name,
                             cuisine = cuisine,
                             ingredients = ingredients,

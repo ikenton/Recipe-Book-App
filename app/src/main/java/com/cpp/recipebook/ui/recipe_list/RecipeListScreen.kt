@@ -58,7 +58,7 @@ fun RecipeListScreen(
                         modifier = Modifier
                             .weight(1f)
                             .clickable {
-                                viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index * 2].id))
+                                viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index * 2].id!!))
                             }
                     )
                     RecipeListCard(
@@ -67,7 +67,7 @@ fun RecipeListScreen(
                         modifier = Modifier
                             .weight(1f)
                             .clickable {
-                                viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index * 2 + 1].id))
+                                viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index * 2 + 1].id!!))
                             }
                     )
                 }

@@ -24,9 +24,9 @@ class RecipeRepository private constructor(
         //.addMigrations()
         .build()
     fun getRecipes(): Flow<List<Recipe>> = database.recipeDao().getRecipes()
-    suspend fun getRecipe(id: UUID):Recipe=database.recipeDao().getRecipe(id)
-    suspend fun getName(id: UUID): String = database.recipeDao().getName(id)
-    suspend fun getCuisine(id: UUID): String = database.recipeDao().getCuisine(id)
+    suspend fun getRecipe(id: Int):Recipe=database.recipeDao().getRecipe(id)
+    suspend fun getName(id: Int): String = database.recipeDao().getName(id)
+    suspend fun getCuisine(id: Int): String = database.recipeDao().getCuisine(id)
     suspend fun addRecipe(recipe: Recipe) {
         database.recipeDao().addRecipe(recipe )
     }

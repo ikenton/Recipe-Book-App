@@ -19,15 +19,15 @@ interface RecipeDao {
 
     //get single recipe
     @Query("SELECT * FROM recipe WHERE id=(:id)")
-    suspend fun getRecipe(id: UUID):Recipe
+    suspend fun getRecipe(id: Int):Recipe
 
     //get recipe name
     @Query("SELECT name FROM recipe WHERE id=(:id)")
-    suspend fun getName(id: UUID):String
+    suspend fun getName(id: Int):String
 
     //get cuisine
     @Query("SELECT cuisine FROM recipe WHERE id=(:id)")
-    suspend fun getCuisine(id:UUID):String
+    suspend fun getCuisine(id:Int):String
 
     // add a recipe or update a recipe
     // if id conflict, update the recipe instead

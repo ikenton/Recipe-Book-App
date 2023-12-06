@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.cpp.recipebook.database.RecipeRepository
 import com.cpp.recipebook.util.Routes
 import com.cpp.recipebook.util.UiEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class RecipeListViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository
 ): ViewModel() {
