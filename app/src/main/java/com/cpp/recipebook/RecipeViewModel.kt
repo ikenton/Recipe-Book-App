@@ -29,7 +29,8 @@ class RecipeViewModel(recipeId: UUID) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        recipe.value?.let{recipeRepository.updateRecipe(it)}
+//        recipe.value?.let{recipeRepository.addRecipe(it)}
+//        commenting out for now so i can build LOL
     }
 
     suspend fun removeRecipe(recipeId: UUID){
