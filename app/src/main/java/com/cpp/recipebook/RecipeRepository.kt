@@ -24,7 +24,8 @@ class RecipeRepository private constructor(
         .build()
     fun getRecipes(): List<Recipe> = database.recipeDao().getRecipes()
     suspend fun getRecipe(id: UUID):Recipe=database.recipeDao().getRecipe(id)
-
+    suspend fun getName(id: UUID): String = database.recipeDao().getName(id)
+    suspend fun getCuisine(id: UUID): String = database.recipeDao().getCuisine(id)
     fun updateRecipe(recipe: Recipe){
         coroutineScope.launch {
             database.recipeDao().updateRecipe(recipe)
