@@ -2,10 +2,11 @@ package com.cpp.recipebook
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity
 data class Recipe (
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey val id: UUID,
     val name: String,
     val cuisine: String,
     val ingredients: String,

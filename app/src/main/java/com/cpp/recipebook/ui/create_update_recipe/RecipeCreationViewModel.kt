@@ -54,5 +54,48 @@ class RecipeCreationViewModel @Inject constructor(
         }
     }
 
-    
+    fun onEvent(event: CreateUpdateRecipeEvent) {
+        when(event) {
+            is CreateUpdateRecipeEvent.OnNameChange -> {
+                name = event.name
+            }
+            is CreateUpdateRecipeEvent.OnCuisineChange -> {
+                cuisine = event.cuisine
+            }
+            is CreateUpdateRecipeEvent.OnIngredientsChange -> {
+                ingredients = event.ingredients
+            }
+            is CreateUpdateRecipeEvent.OnDirectionsChange -> {
+                directions = event.directions
+            }
+            is CreateUpdateRecipeEvent.OnNotesChange -> {
+                notes = event.notes
+            }
+            is CreateUpdateRecipeEvent.OnSaveClick -> {
+                viewModelScope.launch {
+                    if (name.isBlank() || cuisine.isBlank() || ingredients.isBlank() || directions.isBlank() || notes.isBlank()) {
+                        sendUiEvent(UiEvent.ShowSnackbar("Please fill out all fields"))
+                        return@launch
+                    }
+                    recipeRepository.addRecipe(
+                        Recipe(
+                            id = recipe?.id ?: UUID.randomUUID(),
+                            name = name,
+                            cuisine = cuisine,
+                            ingredients = ingredients,
+                            directions = directions,
+                            notes = notes,
+                            image = ""  // TEMP: figure out image later lol
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    private fun sendUiEvent(event: UiEvent) {
+        viewModelScope.launch {
+            _uiEvent.send(event)
+        }
+    }
 }
