@@ -29,7 +29,7 @@ class RecipeCreationViewModel @Inject constructor(
         private set
     var ingredients by mutableStateOf("")
         private set
-    var instructions by mutableStateOf("")
+    var directions by mutableStateOf("")
         private set
     var notes by mutableStateOf("")
         private set
@@ -42,8 +42,17 @@ class RecipeCreationViewModel @Inject constructor(
         val recipeId = savedStateHandle.get<UUID>("recipeId")
         if(recipeId != null) {
             viewModelScope.launch {
-                recipe = recipeRepository.getRecipe(recipeId)
+                recipe = recipeRepository.getRecipe(recipeId).let { recipe ->
+                    name = recipe.name
+                    cuisine = recipe.cuisine
+                    ingredients = recipe.ingredients
+                    directions = recipe.directions
+                    notes = recipe.notes
+                    recipe
+                }
             }
         }
     }
+
+    
 }
