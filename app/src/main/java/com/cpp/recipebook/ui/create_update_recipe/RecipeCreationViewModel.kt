@@ -1,5 +1,6 @@
 package com.cpp.recipebook.ui.create_update_recipe
 
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -34,6 +35,10 @@ class RecipeCreationViewModel @Inject constructor(
         private set
     var notes by mutableStateOf("")
         private set
+    var image by mutableStateOf("")
+        private set
+    var selectedImageUri by mutableStateOf<Uri?>(null)
+        private set
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
@@ -50,6 +55,7 @@ class RecipeCreationViewModel @Inject constructor(
                         ingredients = recipe.ingredients
                         directions = recipe.directions
                         notes = recipe.notes
+                        image = recipe.image
                         this@RecipeCreationViewModel.recipe = recipe
                     }
                 }
@@ -74,6 +80,9 @@ class RecipeCreationViewModel @Inject constructor(
             is CreateUpdateRecipeEvent.OnNotesChange -> {
                 notes = event.notes
             }
+            is CreateUpdateRecipeEvent.OnImageChange -> {
+                image = event.uri.toString()
+            }
             is CreateUpdateRecipeEvent.OnSaveClick -> {
                 viewModelScope.launch {
                     if (name.isBlank() || cuisine.isBlank()) {
@@ -89,7 +98,7 @@ class RecipeCreationViewModel @Inject constructor(
                                 ingredients = ingredients,
                                 directions = directions,
                                 notes = notes,
-                                image = ""  // TEMP: figure out image later lol
+                                image = image
                             )
                         )
                     }

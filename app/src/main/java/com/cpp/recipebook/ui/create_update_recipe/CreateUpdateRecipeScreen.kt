@@ -1,6 +1,8 @@
 package com.cpp.recipebook.ui.create_update_recipe
 
-import android.annotation.SuppressLint
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,16 +13,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cpp.recipebook.util.UiEvent
@@ -30,6 +31,11 @@ fun CreateUpdateRecipeScreen(
     viewModel: RecipeCreationViewModel = hiltViewModel(), // 1:19
     onPopBackStack: () -> Unit
 ) {
+    val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri -> viewModel.onEvent(CreateUpdateRecipeEvent.OnImageChange(uri))}
+    )
+
     // TODO: figure out modern way to get snackbar on scaffold
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { uiEvent ->
@@ -121,7 +127,13 @@ fun CreateUpdateRecipeScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // TODO: image
+            Button(onClick = {
+                singlePhotoPickerLauncher.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            }) {
+                Text("Add Image")
+            }
         }
     }
 }
