@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.UUID
+import kotlinx.coroutines.flow.Flow
 
 private const val DATABASE_NAME = "recipe-database"
 class RecipeRepository private constructor(
@@ -22,7 +23,7 @@ class RecipeRepository private constructor(
         )
         //.addMigrations()
         .build()
-    fun getRecipes(): List<Recipe> = database.recipeDao().getRecipes()
+    fun getRecipes(): Flow<List<Recipe>> = database.recipeDao().getRecipes()
     suspend fun getRecipe(id: UUID):Recipe=database.recipeDao().getRecipe(id)
     suspend fun getName(id: UUID): String = database.recipeDao().getName(id)
     suspend fun getCuisine(id: UUID): String = database.recipeDao().getCuisine(id)

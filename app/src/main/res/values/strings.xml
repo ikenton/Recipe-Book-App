@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">RecipeBook</string>
+    <string name="navigation">Navigation</string>
+    <string name="recipe_creation_page">Recipe Creation Page</string>
+    <string name="recipe_page">Recipe Page</string>
 </resources>

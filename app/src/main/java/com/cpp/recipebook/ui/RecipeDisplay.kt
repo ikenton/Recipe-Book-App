@@ -34,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cpp.recipebook.R
 import com.cpp.recipebook.RecipeRepository
-
 //val repository = RecipeRepository.get()
 
 class RecipeDisplay {
@@ -45,7 +44,10 @@ class RecipeDisplay {
 }
 
 @Composable
-fun DisplayScreen() {
+fun DisplayScreen(
+    onAddButtonClicked: () -> Unit
+) {
+
     val listOfNames = listOf("Hamburger", "Brownies", "Pie", "Butter Chicken", "Fried Chicken", "Fifth")
     val listOfCuisines = listOf("American", "Dessert", "Dessert", "Indian", "American","")
     val listOfImages = listOf(
@@ -71,7 +73,7 @@ fun DisplayScreen() {
         ) {
             Column {
                 if (showButton) {
-                    Button(onClick = {}) {
+                    Button(onClick = {onAddButtonClicked()}) {
                         Text(text = "Add Recipe")
                     }
                 }
@@ -105,8 +107,6 @@ fun GenerateRows(images: List<Int>, names: List<String>, cuisines: List<String>)
         val total = kotlin.math.ceil((names.size / 2.0))
 
         for (i in 1..total.toInt()) {
-            var name = ""
-            var cuisine = ""
             Row() {
                 for (j in 0..1) {
 

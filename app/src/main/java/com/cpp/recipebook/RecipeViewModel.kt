@@ -13,7 +13,7 @@ import java.util.UUID
 class RecipeViewModel(recipeId: UUID) : ViewModel() {
     private val recipeRepository = RecipeRepository.get()
     private val _recipe: MutableStateFlow<Recipe?> = MutableStateFlow(null)
-    val recipe: StateFlow<Recipe?> = _recipe.asStateFlow()
+    private val recipe: StateFlow<Recipe?> = _recipe.asStateFlow()
 
     init{
         viewModelScope.launch {
