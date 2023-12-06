@@ -74,8 +74,8 @@ fun RecipeListCardPreview() {
     RecipeListCard(
         recipe = Recipe(
             id = UUID.randomUUID(),
-            name = "Test Recipe",
-            cuisine = "Test Cuisine",
+            name = "Cheeseburger",
+            cuisine = "American",
             ingredients = "Test Ingredient 1\nTest Ingredient 2",
             directions = "Test Step 1\nTest Step 2",
             notes = "Test Notes",
