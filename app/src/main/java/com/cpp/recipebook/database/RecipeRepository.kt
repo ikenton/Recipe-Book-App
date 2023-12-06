@@ -1,12 +1,13 @@
 package com.cpp.recipebook.database
 
 import com.cpp.recipebook.Recipe
+import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 interface RecipeRepository {
     // fetch all recipes
     // note: maybe should return flow in the future?
-    fun getRecipes(): List<Recipe>
+    fun getRecipes(): Flow<List<Recipe>>
 
     //get single recipe
     suspend fun getRecipe(id: UUID): Recipe

@@ -1,12 +1,13 @@
 package com.cpp.recipebook.database
 
 import com.cpp.recipebook.Recipe
+import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 class RecipeRepositoryImpl(
     private val recipeDao: RecipeDao
 ): RecipeRepository {
-    override fun getRecipes(): List<Recipe> {
+    override fun getRecipes(): Flow<List<Recipe>> {
         return recipeDao.getRecipes()
     }
 
