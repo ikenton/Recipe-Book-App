@@ -17,7 +17,7 @@ class SearchViewModel @Inject constructor(
 ): ViewModel() {
     var searchQuery by mutableStateOf("")
         private set
-    var active by mutableStateOf(true)
+    var active by mutableStateOf(false)
         private set
 
     private val _uiEvent = Channel<UiEvent>()
@@ -27,7 +27,6 @@ class SearchViewModel @Inject constructor(
         when (event) {
             is SearchEvent.OnSearchQueryChange -> {
                 searchQuery = event.query
-                active = false
             }
 
             is SearchEvent.OnFocusChange -> {
@@ -35,7 +34,7 @@ class SearchViewModel @Inject constructor(
             }
 
             is SearchEvent.OnSearchClick -> {
-                // TODO: navigate to search results screen with searchQuery
+                active = false
             }
         }
     }

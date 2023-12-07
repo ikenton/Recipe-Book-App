@@ -31,6 +31,9 @@ class RecipeListViewModel @Inject constructor(
             is RecipeListEvent.onAddRecipeClick -> {
                 sendUiEvent(UiEvent.Navigate(Routes.CREATE_UPDATE_RECIPE))
             }
+            is RecipeListEvent.OnDrawerNavClick -> {
+                sendUiEvent(UiEvent.Navigate(event.route))
+            }
         }
     }
 

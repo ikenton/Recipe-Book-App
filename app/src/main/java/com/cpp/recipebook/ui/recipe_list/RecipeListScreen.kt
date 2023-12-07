@@ -79,7 +79,7 @@ fun RecipeListScreen(
             title="Search",
             selectedIcon = Icons.Filled.Search,
             unselectedIcon = Icons.Filled.Search,
-            route = Routes.RECIPE_LIST  // TODO: implement search and replace this
+            route = Routes.SEARCH
         )
     )
     LaunchedEffect(key1 = true) {
@@ -111,6 +111,7 @@ fun RecipeListScreen(
                             selectedItemIndex = index
                             scope.launch {
                                 drawerState.close()
+                                viewModel.onEvent(RecipeListEvent.OnDrawerNavClick(item.route))
                             }
                         },
                         icon = {

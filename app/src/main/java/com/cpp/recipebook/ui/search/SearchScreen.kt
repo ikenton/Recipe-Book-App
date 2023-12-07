@@ -42,21 +42,7 @@ fun SearchScreen (
         }
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text="Search") },
-                navigationIcon = {
-                    IconButton(onClick = { onPopBackStack() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
-            )
-        }
-    ) { values ->
+    Scaffold() { values ->
         SearchBar(
             query = viewModel.searchQuery,
             onQueryChange = {
@@ -77,22 +63,21 @@ fun SearchScreen (
                 )
             },
             trailingIcon = {
-                if (viewModel.searchQuery.isNotEmpty()) {
-                    IconButton(onClick = {
+                IconButton(onClick = {
+                    if (viewModel.searchQuery.isNotEmpty()) {
                         viewModel.onEvent(SearchEvent.OnSearchQueryChange(""))
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.Clear,
-                            contentDescription = "Clear"
-                        )
+                    } else {
+                        viewModel.onEvent(SearchEvent.OnFocusChange(false))
                     }
-                } else {
-                    viewModel.onEvent(SearchEvent.OnFocusChange(false))
+                }) {
+                  Icon(
+                      imageVector = Icons.Filled.Clear,
+                        contentDescription = "Clear"
+                  )
                 }
             },
             modifier = Modifier
                 .padding(values)
-                .padding(16.dp)
                 .fillMaxWidth()
         ) {
             // TODO: Search results
