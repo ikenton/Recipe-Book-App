@@ -3,6 +3,14 @@ package com.cpp.recipebook
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 NavHost(
                     navController = navController,
                     startDestination = Routes.RECIPE_LIST,
+
                     builder = {
                         composable(Routes.RECIPE_LIST) {
                             RecipeListScreen(
@@ -47,6 +56,20 @@ class MainActivity : AppCompatActivity() {
                         }
                         composable(
                             route = Routes.CREATE_UPDATE_RECIPE + "?recipeId={recipeId}",
+                            enterTransition = {
+                                slideInHorizontally(
+                                    animationSpec = tween(durationMillis = 450, easing = FastOutSlowInEasing)
+                                ) {
+                                        fullWidth -> fullWidth + 200
+                                } + fadeIn()
+                            },
+                            exitTransition = {
+                                slideOutHorizontally(
+                                    animationSpec = tween(450, easing = FastOutSlowInEasing)
+                                ) {
+                                    fullWidth -> fullWidth + 200
+                                }
+                            },
                             arguments = listOf(
                                 navArgument(name = "recipeId") {
                                     type = NavType.IntType
