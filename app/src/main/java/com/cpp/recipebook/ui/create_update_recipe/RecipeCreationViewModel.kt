@@ -1,14 +1,20 @@
 package com.cpp.recipebook.ui.create_update_recipe
 
+import android.app.Application
+import android.net.Uri
+import android.util.Log
+import androidx.compose.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cpp.recipebook.database.Recipe
 import com.cpp.recipebook.database.RecipeRepository
 import com.cpp.recipebook.util.UiEvent
+import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -20,8 +26,9 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeCreationViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
-    savedStateHandle: SavedStateHandle
-): ViewModel() {
+    savedStateHandle: SavedStateHandle,
+    application: Application
+): AndroidViewModel(application) {
     var recipe by mutableStateOf<Recipe?>(null)
         private set
     var name by mutableStateOf("")
@@ -33,6 +40,8 @@ class RecipeCreationViewModel @Inject constructor(
     var directions by mutableStateOf("")
         private set
     var notes by mutableStateOf("")
+        private set
+    var image by mutableStateOf("")
         private set
 
     private val _uiEvent = Channel<UiEvent>()
@@ -50,8 +59,10 @@ class RecipeCreationViewModel @Inject constructor(
                         ingredients = recipe.ingredients
                         directions = recipe.directions
                         notes = recipe.notes
+                        image = recipe.image
                         this@RecipeCreationViewModel.recipe = recipe
                     }
+                    Log.d("RecipeCreationViewModel", "image path: $image")
                 }
             }
         }
@@ -74,6 +85,16 @@ class RecipeCreationViewModel @Inject constructor(
             is CreateUpdateRecipeEvent.OnNotesChange -> {
                 notes = event.notes
             }
+            is CreateUpdateRecipeEvent.OnImageChange -> {
+                viewModelScope.launch {
+                    val context = getApplication<Application>().applicationContext
+                    val inputStream = context.contentResolver.openInputStream(event.uri!!)
+                    val filename = "img_${System.currentTimeMillis()}.jpg"
+                    val outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE)
+                    inputStream?.copyTo(outputStream)
+                    image = context.getFileStreamPath(filename).absolutePath
+                }
+            }
             is CreateUpdateRecipeEvent.OnSaveClick -> {
                 viewModelScope.launch {
                     if (name.isBlank() || cuisine.isBlank()) {
@@ -89,7 +110,7 @@ class RecipeCreationViewModel @Inject constructor(
                                 ingredients = ingredients,
                                 directions = directions,
                                 notes = notes,
-                                image = ""  // TEMP: figure out image later lol
+                                image = image
                             )
                         )
                     }
