@@ -158,7 +158,7 @@ fun RecipeListScreen(
                     },
                     actions = {
                         IconButton(
-                            onClick = { /* TODO: do something */ }
+                            onClick = { viewModel.onEvent(RecipeListEvent.OnDrawerNavClick(Routes.SEARCH)) }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Search,
