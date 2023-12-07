@@ -25,9 +25,9 @@ class RecipePageViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    var name by mutableStateOf("")
+    var name by mutableStateOf("Name")
         private set
-    var cuisine by mutableStateOf("")
+    var cuisine by mutableStateOf("Cuisine")
         private set
     var ingredients by mutableStateOf("")
         private set
@@ -35,19 +35,17 @@ class RecipePageViewModel @Inject constructor(
         private set
     var notes by mutableStateOf("")
         private set
-    init{
-        val recipeId: Int? = savedStateHandle["recipeId"]
-        viewModelScope.launch {
-            var recipe = recipeId?.let { recipeRepository.getRecipe(it) }
-            if (recipeId != null) {
-                recipeRepository.getRecipe(recipeId).let { recipe ->
-                    name = recipe.name
-                    cuisine = recipe.cuisine
-                    ingredients = recipe.ingredients
-                    directions = recipe.directions
-                    notes = recipe.notes
 
-                }
+    init{
+        viewModelScope.launch {
+            val recipeId: Int? = savedStateHandle["recipeId"]
+            if (recipeId != null) {
+                var recipe = recipeId.let { recipeRepository.getRecipe(it) }
+                name = recipe.name
+                cuisine = recipe.cuisine
+                ingredients = recipe.ingredients
+                directions = recipe.directions
+                notes = recipe.notes
             }
         }
     }
@@ -55,3 +53,4 @@ class RecipePageViewModel @Inject constructor(
 
 
 }
+
