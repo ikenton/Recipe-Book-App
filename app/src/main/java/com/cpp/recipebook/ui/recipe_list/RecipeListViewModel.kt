@@ -16,6 +16,7 @@ class RecipeListViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository
 ): ViewModel() {
     val recipes = recipeRepository.getRecipes()
+    // will most likely have a savedstatehandle to get a search query and filter the recipes
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
