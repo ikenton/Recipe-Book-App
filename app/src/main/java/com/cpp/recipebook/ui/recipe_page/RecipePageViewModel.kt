@@ -1,12 +1,10 @@
 package com.cpp.recipebook.ui.recipe_page
 
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cpp.recipebook.database.Recipe
 import com.cpp.recipebook.database.RecipeRepository
 import com.cpp.recipebook.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,9 +20,11 @@ class RecipePageViewModel @Inject constructor(
 ): ViewModel() {
     //private val recipeId: Int? = savedStateHandle["recipeId"]
 
+    private lateinit var recipe: Recipe
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    /*private var recipe by mutableStateOf<Recipe?>(null)
     var name by mutableStateOf("")
         private set
     var cuisine by mutableStateOf("")
@@ -34,24 +34,21 @@ class RecipePageViewModel @Inject constructor(
     var directions by mutableStateOf("")
         private set
     var notes by mutableStateOf("")
-        private set
+        private set*/
     init{
-        val recipeId: Int? = savedStateHandle["recipeId"]
+        val recipeId = savedStateHandle.get<Int>("?recipeId")
         viewModelScope.launch {
-            var recipe = recipeId?.let { recipeRepository.getRecipe(it) }
+            //var recipe = recipeId?.let { recipeRepository.getRecipe(it) }
             if (recipeId != null) {
                 recipeRepository.getRecipe(recipeId).let { recipe ->
-                    name = recipe.name
-                    cuisine = recipe.cuisine
-                    ingredients = recipe.ingredients
-                    directions = recipe.directions
-                    notes = recipe.notes
-
+                    var name = recipe.name
+                    var cuisine = recipe.cuisine
+                    var ingredients = recipe.ingredients
+                    var directions = recipe.directions
+                    var notes = recipe.notes
+                    this@RecipePageViewModel.recipe = recipe
                 }
             }
         }
     }
-
-
-
 }
