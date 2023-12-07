@@ -25,11 +25,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -47,13 +50,14 @@ fun CreateUpdateRecipeScreen(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri -> viewModel.onEvent(CreateUpdateRecipeEvent.OnImageChange(uri))}
     )
+    val snackbarHostState = remember { SnackbarHostState() }
 
     // TODO: figure out modern way to get snackbar on scaffold
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { uiEvent ->
             when (uiEvent) {
                 is UiEvent.ShowSnackbar -> {
-                    // TODO: show snackbar
+                    snackbarHostState.showSnackbar(uiEvent.message)
                 }
 
                 is UiEvent.Navigate -> {
@@ -67,6 +71,12 @@ fun CreateUpdateRecipeScreen(
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier.padding(16.dp)
+            )
+        },
         topBar = {
                  TopAppBar(
                      title = { Text(text = "Add/Edit Recipe") },
