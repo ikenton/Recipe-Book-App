@@ -24,6 +24,7 @@ class RecipeListViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    // TODO: Make this search less strict
     init {
         val query = savedStateHandle.get<String>("query")
         if (query != null) {
