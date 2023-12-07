@@ -25,9 +25,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.cpp.recipebook.ui.create_update_recipe.CreateUpdateRecipeScreen
 import com.cpp.recipebook.ui.recipe_list.RecipeListScreen
+import com.cpp.recipebook.ui.recipe_page.RecipePage
 import com.cpp.recipebook.ui.theme.RecipeBookTheme
 import com.cpp.recipebook.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.text.Typography.dagger
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -52,11 +54,18 @@ class MainActivity : AppCompatActivity() {
                                     type = NavType.IntType
                                     defaultValue = -1
                                 })
-                            ) {
-                                CreateUpdateRecipeScreen(
-                                    onPopBackStack = { navController.popBackStack() }
-                                )
-                            }
+                        ) {
+                            CreateUpdateRecipeScreen(
+                                onPopBackStack = { navController.popBackStack() }
+                            )
+                        }
+                        composable(
+                            route = Routes.RECIPE_PAGE
+                        ){
+                            RecipePage(
+                                onPopBackStack = {navController.popBackStack()}
+                            )
+                        }
                     }
                 )
             }

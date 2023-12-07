@@ -87,6 +87,7 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.1.0'
     ksp "com.google.dagger:hilt-compiler:2.48"   // Hilt compiler
     ksp "com.google.dagger:dagger-compiler:2.48"
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.1.0'
 
 
     testImplementation 'junit:junit:4.13.2'
