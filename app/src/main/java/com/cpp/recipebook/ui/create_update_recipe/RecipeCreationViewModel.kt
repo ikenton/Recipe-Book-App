@@ -86,9 +86,14 @@ class RecipeCreationViewModel @Inject constructor(
                 notes = event.notes
             }
             is CreateUpdateRecipeEvent.OnImageChange -> {
+                // check if image is null
+                if (event.uri == null) {
+                    image = ""
+                    return
+                }
                 viewModelScope.launch {
                     val context = getApplication<Application>().applicationContext
-                    val inputStream = context.contentResolver.openInputStream(event.uri!!)
+                    val inputStream = context.contentResolver.openInputStream(event.uri)
                     val filename = "img_${System.currentTimeMillis()}.jpg"
                     val outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE)
                     inputStream?.copyTo(outputStream)
