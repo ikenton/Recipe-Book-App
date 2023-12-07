@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.cpp.recipebook.ui.create_update_recipe
 
 import android.net.Uri
@@ -14,14 +16,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -60,8 +66,30 @@ fun CreateUpdateRecipeScreen(
     }
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+            .fillMaxSize(),
+        topBar = {
+                 TopAppBar(
+                     title = { Text(text = "Add/Edit Recipe") },
+                     navigationIcon = {
+                         IconButton(onClick = { onPopBackStack() }) {
+                             Icon(
+                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                 contentDescription = "Back"
+                             )
+                         }
+                     },
+                     actions = {
+                         IconButton(onClick = {
+                             viewModel.onEvent(CreateUpdateRecipeEvent.OnSaveClick)
+                         }) {
+                             Icon(
+                                 imageVector = Icons.Default.Done,
+                                 contentDescription = "Save Recipe"
+                             )
+                         }
+                     }
+                 )
+        },
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 viewModel.onEvent(CreateUpdateRecipeEvent.OnSaveClick)
@@ -77,6 +105,7 @@ fun CreateUpdateRecipeScreen(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .padding(values)
+                .padding(16.dp)
         ) {
             // name
             TextField(
