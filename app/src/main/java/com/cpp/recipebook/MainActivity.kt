@@ -33,6 +33,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.cpp.recipebook.ui.create_update_recipe.CreateUpdateRecipeScreen
 import com.cpp.recipebook.ui.recipe_list.RecipeListScreen
+import com.cpp.recipebook.ui.search.SearchScreen
 import com.cpp.recipebook.ui.theme.RecipeBookTheme
 import com.cpp.recipebook.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,6 +81,28 @@ class MainActivity : AppCompatActivity() {
                                     onPopBackStack = { navController.popBackStack() }
                                 )
                             }
+                        composable(
+                            route = Routes.SEARCH,
+                            enterTransition = {
+                                slideInHorizontally(
+                                    animationSpec = tween(durationMillis = 450, easing = FastOutSlowInEasing)
+                                ) {
+                                    fullWidth -> fullWidth + 200
+                                } + fadeIn()
+                            },
+                            exitTransition = {
+                                slideOutHorizontally (
+                                    animationSpec = tween(450, easing = FastOutSlowInEasing)
+                                ) {
+                                    fullWidth -> fullWidth + 200
+                                } + fadeOut()
+                            },
+                        ) {
+                            SearchScreen(
+                                onPopBackStack = { navController.popBackStack() },
+                                onNavigate = { navController.navigate(it.route) }
+                            )
+                        }
                     }
                 )
             }

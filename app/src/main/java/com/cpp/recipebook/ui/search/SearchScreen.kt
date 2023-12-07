@@ -19,11 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.cpp.recipebook.util.UiEvent
 
 @Composable
 fun SearchScreen (
-    viewModel: SearchViewModel,
+    viewModel: SearchViewModel = hiltViewModel(),
     onNavigate: (UiEvent.Navigate) -> Unit,
     onPopBackStack: () -> Unit
 ) {
