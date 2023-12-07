@@ -124,6 +124,7 @@ class RecipeCreationViewModel @Inject constructor(
             is CreateUpdateRecipeEvent.OnDeleteClick -> {
                 if (recipe == null) {
                     sendUiEvent(UiEvent.PopBackStack)
+                    return
                 }
                 viewModelScope.launch {
                     withContext(Dispatchers.IO) {
