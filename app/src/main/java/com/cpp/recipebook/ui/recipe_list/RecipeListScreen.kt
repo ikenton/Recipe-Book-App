@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -24,10 +25,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cpp.recipebook.ui.create_update_recipe.CreateUpdateRecipeEvent
@@ -48,7 +51,10 @@ fun RecipeListScreen(
             }
         }
     }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 viewModel.onEvent(RecipeListEvent.onAddRecipeClick)
@@ -62,15 +68,27 @@ fun RecipeListScreen(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Recipes") },
+                actions = {
+                    IconButton(
+                        onClick = { /* TODO: do something */ }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "Search"
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior
             )
-        }
+        },
     ) { values ->
         Box(modifier = Modifier.padding(values)) {
             LazyVerticalStaggeredGrid(
                 columns = StaggeredGridCells.Fixed(2),
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(12.dp),
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 16.dp),
                 verticalItemSpacing = 12.dp,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
