@@ -29,7 +29,11 @@ class RecipeListViewModel @Inject constructor(
         if (query != null) {
             filteredRecipes = filteredRecipes.map { list ->
                 list.filter { recipe ->
-                    recipe.name.contains(query, ignoreCase = true)
+                    recipe.name.contains(query, ignoreCase = true) ||
+                    recipe.cuisine.contains(query, ignoreCase = true) ||
+                    recipe.ingredients.contains(query, ignoreCase = true) ||
+                    recipe.directions.contains(query, ignoreCase = true) ||
+                    recipe.notes.contains(query, ignoreCase = true)
                 }
             }
         }
