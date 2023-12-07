@@ -1,5 +1,6 @@
 package com.cpp.recipebook.ui.recipe_list
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cpp.recipebook.database.RecipeRepository
@@ -7,19 +8,32 @@ import com.cpp.recipebook.util.Routes
 import com.cpp.recipebook.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RecipeListViewModel @Inject constructor(
-    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository,
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
     val recipes = recipeRepository.getRecipes()
-    // will most likely have a savedstatehandle to get a search query and filter the recipes
+    var filteredRecipes = recipes
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
+
+    init {
+        val query = savedStateHandle.get<String>("query")
+        if (query != null) {
+            filteredRecipes = filteredRecipes.map { list ->
+                list.filter { recipe ->
+                    recipe.name.contains(query, ignoreCase = true)
+                }
+            }
+        }
+    }
 
     fun onEvent(event: RecipeListEvent) {
         when(event) {

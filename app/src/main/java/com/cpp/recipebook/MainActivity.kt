@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                     startDestination = Routes.RECIPE_LIST,
 
                     builder = {
-                        composable(Routes.RECIPE_LIST) {
+                        composable(Routes.RECIPE_LIST + "?query={query}") {
                             RecipeListScreen(
                                 onNavigate = { navController.navigate(it.route) }
                             )

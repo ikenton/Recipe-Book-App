@@ -4,11 +4,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.cpp.recipebook.database.RecipeRepository
+import com.cpp.recipebook.util.Routes
 import com.cpp.recipebook.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,7 +38,13 @@ class SearchViewModel @Inject constructor(
 
             is SearchEvent.OnSearchClick -> {
                 active = false
+                sendUiEvent(UiEvent.Navigate(Routes.RECIPE_LIST+"?query=${event.query}"))
             }
+        }
+    }
+    private fun sendUiEvent(event: UiEvent) {
+        viewModelScope.launch {
+            _uiEvent.send(event)
         }
     }
 }

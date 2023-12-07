@@ -67,7 +67,7 @@ fun RecipeListScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
     viewModel: RecipeListViewModel = hiltViewModel(),
 ) {
-    val recipes = viewModel.recipes.collectAsState(initial = emptyList())
+    val recipes = viewModel.filteredRecipes.collectAsState(initial = emptyList())
     val drawerItems = listOf(
         NavigationItem(
             title="Recipes",

@@ -55,7 +55,7 @@ fun SearchScreen (
                 viewModel.onEvent(SearchEvent.OnSearchQueryChange(it))
             },
             onSearch = {
-                viewModel.onEvent(SearchEvent.OnSearchClick)
+                viewModel.onEvent(SearchEvent.OnSearchClick(viewModel.searchQuery))
             },
             active = viewModel.active ,
             onActiveChange = {
