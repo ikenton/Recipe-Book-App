@@ -87,7 +87,7 @@ fun SearchScreen (
                 .fillMaxWidth()
                 .focusRequester(focusRequester)
         ) {
-            // TODO: Search results
+            // TODO: Fill with suggestions
         }
     }
 }
