@@ -88,7 +88,6 @@ class RecipeCreationViewModel @Inject constructor(
             is CreateUpdateRecipeEvent.OnImageChange -> {
                 // check if image is null
                 if (event.uri == null) {
-                    image = ""
                     return
                 }
                 viewModelScope.launch {
