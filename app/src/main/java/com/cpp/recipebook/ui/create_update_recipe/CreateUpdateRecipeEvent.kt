@@ -10,4 +10,5 @@ sealed class CreateUpdateRecipeEvent {
     data class OnNotesChange(val notes: String): CreateUpdateRecipeEvent()
     data class OnImageChange(val uri: Uri?): CreateUpdateRecipeEvent()
     object OnSaveClick: CreateUpdateRecipeEvent()
+    object OnDeleteClick: CreateUpdateRecipeEvent()
 }

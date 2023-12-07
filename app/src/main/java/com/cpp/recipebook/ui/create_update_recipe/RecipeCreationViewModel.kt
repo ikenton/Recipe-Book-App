@@ -121,6 +121,17 @@ class RecipeCreationViewModel @Inject constructor(
                     sendUiEvent(UiEvent.PopBackStack)
                 }
             }
+            is CreateUpdateRecipeEvent.OnDeleteClick -> {
+                if (recipe == null) {
+                    sendUiEvent(UiEvent.PopBackStack)
+                }
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        recipeRepository.deleteRecipe(recipe!!)
+                    }
+                    sendUiEvent(UiEvent.PopBackStack)
+                }
+            }
         }
     }
 
