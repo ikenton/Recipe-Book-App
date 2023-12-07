@@ -5,5 +5,6 @@ import java.util.UUID
 
 sealed class RecipeListEvent {
     data class onRecipeClick(val recipe: Recipe): RecipeListEvent()
+    data class OnDrawerNavClick(val route: String): RecipeListEvent()
     object onAddRecipeClick: RecipeListEvent()
 }
