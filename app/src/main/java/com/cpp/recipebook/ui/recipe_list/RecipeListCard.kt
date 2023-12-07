@@ -1,5 +1,6 @@
 package com.cpp.recipebook.ui.recipe_list
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.cpp.recipebook.R
 import com.cpp.recipebook.database.Recipe
 
@@ -34,9 +36,10 @@ fun RecipeListCard(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.surface),
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.hamburger),
-                contentDescription = "Recipe Image",
+//
+            AsyncImage(
+                model = Uri.parse(recipe.image),
+                contentDescription = recipe.name,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(180.dp),

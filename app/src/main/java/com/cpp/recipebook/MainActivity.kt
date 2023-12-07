@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                             )
                         }
                         composable(
-                            route = Routes.CREATE_UPDATE_RECIPE,
+                            route = Routes.CREATE_UPDATE_RECIPE + "?recipeId={recipeId}",
                             arguments = listOf(
                                 navArgument(name = "recipeId") {
                                     type = NavType.IntType

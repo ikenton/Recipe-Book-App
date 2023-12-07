@@ -72,6 +72,9 @@ dependencies {
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
 
+    // coil
+    implementation 'io.coil-kt:coil-compose:2.1.0'
+
     // room
     implementation "androidx.room:room-runtime:2.5.2"
     ksp "androidx.room:room-compiler:2.5.2"
