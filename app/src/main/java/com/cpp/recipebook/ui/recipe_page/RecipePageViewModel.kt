@@ -1,12 +1,15 @@
 package com.cpp.recipebook.ui.recipe_page
 
 
+import android.app.Application
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cpp.recipebook.database.Recipe
 import com.cpp.recipebook.database.RecipeRepository
 import com.cpp.recipebook.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,16 +21,16 @@ import javax.inject.Inject
 class RecipePageViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     savedStateHandle: SavedStateHandle,
+    application: Application
+    //,    recipeId: Int
+): AndroidViewModel(application) {
+    private val recipeId: Int? = savedStateHandle["recipeId"]
 
-): ViewModel() {
-    //private val recipeId: Int? = savedStateHandle["recipeId"]
-
-    private val _uiEvent = Channel<UiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
-
-    var name by mutableStateOf("Name")
+    var recipe by mutableStateOf<Recipe?>(null)
         private set
-    var cuisine by mutableStateOf("Cuisine")
+    var name by mutableStateOf("")
+        private set
+    var cuisine by mutableStateOf("")
         private set
     var ingredients by mutableStateOf("")
         private set
@@ -35,20 +38,33 @@ class RecipePageViewModel @Inject constructor(
         private set
     var notes by mutableStateOf("")
         private set
+    var image by mutableStateOf("")
+        private set
 
-    init{
-        viewModelScope.launch {
-            val recipeId: Int? = savedStateHandle["recipeId"]
-            if (recipeId != null) {
-                var recipe = recipeId.let { recipeRepository.getRecipe(it) }
-                name = recipe.name
-                cuisine = recipe.cuisine
-                ingredients = recipe.ingredients
-                directions = recipe.directions
-                notes = recipe.notes
+    private val _uiEvent = Channel<UiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
+//    figure out image later lol
+
+    init {
+        val recipeId = savedStateHandle.get<Int>("recipeId")
+        if (recipeId != -1) {
+            viewModelScope.launch {
+                if (recipeId != null) {
+                    recipeRepository.getRecipe(recipeId).let { recipe ->
+                        name = recipe.name
+                        cuisine = recipe.cuisine
+                        ingredients = recipe.ingredients
+                        directions = recipe.directions
+                        notes = recipe.notes
+                        image = recipe.image
+                        this@RecipePageViewModel.recipe = recipe
+                    }
+                    Log.d("RecipePageViewModel", "image path: $image")
+                }
             }
         }
     }
+
 
 
 

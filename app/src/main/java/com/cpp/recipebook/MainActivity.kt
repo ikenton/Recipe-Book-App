@@ -22,6 +22,7 @@ import com.cpp.recipebook.ui.theme.RecipeBookTheme
 import com.cpp.recipebook.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,8 +67,8 @@ class MainActivity : AppCompatActivity() {
                             )
                         }
                         composable(
-                            route = Routes.RECIPE_PAGE
-                           // arguments = listOf(navArgument(name = "recipeId"){type = NavType.IntType})
+                            route = Routes.RECIPE_PAGE + "?recipeId={recipeId}",
+                            arguments = listOf(navArgument(name = "recipeId"){type = NavType.IntType})
                         ) {navBackStackEntry ->
                             val recipeId = navBackStackEntry.arguments?.getInt("recipeId")
                             recipeId?.let{id ->
