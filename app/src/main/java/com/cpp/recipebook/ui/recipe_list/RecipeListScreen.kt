@@ -5,16 +5,13 @@ package com.cpp.recipebook.ui.recipe_list
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
@@ -38,7 +35,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -47,7 +43,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.cpp.recipebook.ui.create_update_recipe.CreateUpdateRecipeEvent
 import com.cpp.recipebook.util.Routes
 import com.cpp.recipebook.util.UiEvent
 import kotlinx.coroutines.launch
@@ -130,7 +125,7 @@ fun RecipeListScreen(
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             floatingActionButton = {
                 FloatingActionButton(onClick = {
-                    viewModel.onEvent(RecipeListEvent.onAddRecipeClick)
+                    viewModel.onEvent(RecipeListEvent.OnAddRecipeClick)
                 }) {
                     Icon(
                         imageVector = Icons.Default.Add,
@@ -182,7 +177,7 @@ fun RecipeListScreen(
                             recipe = recipes.value[index],
                             onEvent = viewModel::onEvent,
                             modifier = Modifier
-                                .clickable { viewModel.onEvent(RecipeListEvent.onRecipeClick(recipes.value[index])) }
+                                .clickable { viewModel.onEvent(RecipeListEvent.OnRecipeClick(recipes.value[index])) }
                         )
                     }
                 }
