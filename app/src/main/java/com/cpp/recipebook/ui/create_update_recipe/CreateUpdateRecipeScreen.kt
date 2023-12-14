@@ -54,7 +54,8 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun CreateUpdateRecipeScreen(
     viewModel: RecipeCreationViewModel = hiltViewModel(), // 1:19
-    onPopBackStack: () -> Unit
+    onPopBackStack: () -> Unit,
+    recipeId: Int?
 ) {
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),

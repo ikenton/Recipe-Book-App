@@ -62,7 +62,7 @@ dependencies {
     implementation 'androidx.compose.foundation:foundation:1.5.4'
     implementation 'androidx.compose.material3:material3'
     implementation 'androidx.compose.ui:ui-tooling:1.5.4'
-    implementation 'androidx.compose.material3:material3:1.2.0-alpha11'
+    implementation 'androidx.compose.material3:material3:1.2.0-alpha12'
     implementation 'androidx.activity:activity-compose:1.8.1'
     implementation 'androidx.ui:ui-framework:0.1.0-dev03'
     implementation 'com.google.ar.sceneform:filament-android:1.17.1'
@@ -74,7 +74,7 @@ dependencies {
     implementation 'androidx.compose.ui:ui-tooling-preview'
 
     // coil
-    implementation 'io.coil-kt:coil-compose:2.1.0'
+    implementation 'io.coil-kt:coil-compose:2.5.0'
 
     // room
     implementation "androidx.room:room-runtime:2.5.2"
@@ -83,7 +83,7 @@ dependencies {
 
     // Compose dependencies
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2"
-    implementation "androidx.navigation:navigation-compose:2.7.5"
+    implementation "androidx.navigation:navigation-compose:2.7.6"
 
     // dagger hilt
     implementation "com.google.dagger:hilt-android:2.48"
@@ -91,6 +91,7 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.1.0'
     ksp "com.google.dagger:hilt-compiler:2.48"   // Hilt compiler
     ksp "com.google.dagger:dagger-compiler:2.48"
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.1.0'
 
 
     testImplementation 'junit:junit:4.13.2'
