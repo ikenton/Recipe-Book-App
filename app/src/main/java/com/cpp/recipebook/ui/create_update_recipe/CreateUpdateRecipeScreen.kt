@@ -44,7 +44,8 @@ import com.cpp.recipebook.util.UiEvent
 @Composable
 fun CreateUpdateRecipeScreen(
     viewModel: RecipeCreationViewModel = hiltViewModel(), // 1:19
-    onPopBackStack: () -> Unit
+    onPopBackStack: () -> Unit,
+    recipeId: Int?
 ) {
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),

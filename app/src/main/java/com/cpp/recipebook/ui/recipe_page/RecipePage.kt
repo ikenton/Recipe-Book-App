@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 
 @Composable
@@ -38,7 +39,9 @@ fun RecipePage(
 
     //onPopBackStack: () -> Unit,
     viewModel: RecipePageViewModel = hiltViewModel(),
-    recipeId: Int
+    recipeId: Int,
+    navController: NavController,
+    onPopBackStack: () -> Unit
 ){
 
     //tab info
@@ -48,12 +51,13 @@ fun RecipePage(
     val configuration = LocalConfiguration.current
     isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val listState = rememberLazyListState()
+    val recipe = viewModel.recipe
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
-            //.padding(16.dp),
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*viewModel.onEvent(RecipePageEvent.onEditRecipeClick)*/
+            FloatingActionButton(onClick = {
+                viewModel.onEvent(RecipePageEvent.OnEditRecipeClick(recipeId), navController)
             }) {
                 Icon(
                     imageVector = Icons.Default.Edit,

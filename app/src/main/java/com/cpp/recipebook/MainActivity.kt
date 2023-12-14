@@ -61,18 +61,37 @@ class MainActivity : AppCompatActivity() {
                                     type = NavType.IntType
                                     defaultValue = -1
                                 })
-                        ) {
+                        ) {entry ->
                             CreateUpdateRecipeScreen(
-                                onPopBackStack = { navController.popBackStack() }
+                                onPopBackStack = { navController.popBackStack() }, recipeId = entry.arguments?.getInt("recipeId")
                             )
                         }
                         composable(
                             route = Routes.RECIPE_PAGE + "?recipeId={recipeId}",
+                            enterTransition = {
+                                slideInHorizontally(
+                                    animationSpec = tween(durationMillis = 450, easing = FastOutSlowInEasing)
+                                ) {
+                                        fullWidth -> fullWidth + 200
+                                } + fadeIn()
+                            },
+                            exitTransition = {
+                                slideOutHorizontally(
+                                    animationSpec = tween(450, easing = FastOutSlowInEasing)
+                                ) {
+                                        fullWidth -> fullWidth + 200
+                                }
+                            },
                             arguments = listOf(navArgument(name = "recipeId"){type = NavType.IntType})
                         ) {navBackStackEntry ->
                             val recipeId = navBackStackEntry.arguments?.getInt("recipeId")
                             recipeId?.let{id ->
-                                RecipePage(recipeId = id)
+                                RecipePage(
+                                    recipeId = id,
+                                    onPopBackStack = { navController.popBackStack() },
+                                    navController = navController
+
+                                )
 
                             }
                         }

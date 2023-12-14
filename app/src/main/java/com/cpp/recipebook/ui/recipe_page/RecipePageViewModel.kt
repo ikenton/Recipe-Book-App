@@ -9,8 +9,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.cpp.recipebook.database.Recipe
 import com.cpp.recipebook.database.RecipeRepository
+import com.cpp.recipebook.util.Routes
 import com.cpp.recipebook.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -21,11 +23,10 @@ import javax.inject.Inject
 class RecipePageViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     savedStateHandle: SavedStateHandle,
-    application: Application
-    //,    recipeId: Int
+    application: Application,
 ): AndroidViewModel(application) {
     private val recipeId: Int? = savedStateHandle["recipeId"]
-
+    private val tag = "RecipePageViewModel"
     var recipe by mutableStateOf<Recipe?>(null)
         private set
     var name by mutableStateOf("")
@@ -43,7 +44,6 @@ class RecipePageViewModel @Inject constructor(
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
-//    figure out image later lol
 
     init {
         val recipeId = savedStateHandle.get<Int>("recipeId")
@@ -65,6 +65,16 @@ class RecipePageViewModel @Inject constructor(
         }
     }
 
+    fun onEvent(event: RecipePageEvent, navController: NavController){
+
+        when(event) {
+            is RecipePageEvent.OnEditRecipeClick -> {
+                navController.navigate(Routes.CREATE_UPDATE_RECIPE + "?recipeId=${event.recipeId}")
+                Log.d(tag, "on event: ${event.recipeId}")
+            }
+
+        }
+    }
 
 
 
